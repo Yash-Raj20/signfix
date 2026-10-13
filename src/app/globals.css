@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 200 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url('/fonts/bricolage-grotesque-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme {
+  --color-ink: #07182d;
+  --color-deep: #0b2342;
+  --color-paper: #f4f1ea;
+  --color-led: #ffb020;
+
+  --font-sans: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-serif: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-bricolage: 'Bricolage Grotesque', system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    --ink: #07182d;
+    --deep: #0b2342;
+    --paper: #f4f1ea;
+    --led: #ffb020;
+    --font-bricolage: 'Bricolage Grotesque', system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: auto; /* Handled smoothly by Lenis */
+    background-color: #f8f6f0;
+    color: #07182d;
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif !important;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: #f8f6f0;
+    color: #07182d;
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif !important;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, a, button, input, span, div {
+    font-family: inherit;
+  }
+
+  /* Minimal scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #07182d;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1c3550;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ffb020;
+  }
+}
+
+/* Signature "Lights Back On" Hero Flicker Animation */
+@keyframes sign-flicker {
+  0% {
+    opacity: 0.15;
+    text-shadow: none;
+  }
+  8% {
+    opacity: 0.9;
+    text-shadow: 0 0 16px rgba(255, 176, 32, 0.6);
+  }
+  14% {
+    opacity: 0.25;
+    text-shadow: none;
+  }
+  24% {
+    opacity: 1;
+    text-shadow: 0 0 24px rgba(255, 176, 32, 0.75), 0 0 45px rgba(255, 176, 32, 0.4);
+  }
+  32% {
+    opacity: 0.55;
+    text-shadow: 0 0 8px rgba(255, 176, 32, 0.3);
+  }
+  42% {
+    opacity: 0.95;
+    text-shadow: 0 0 22px rgba(255, 176, 32, 0.7);
+  }
+  48% {
+    opacity: 0.8;
+  }
+  56% {
+    opacity: 1;
+    text-shadow: 0 0 20px rgba(255, 176, 32, 0.75), 0 0 40px rgba(255, 176, 32, 0.35);
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 20px rgba(255, 176, 32, 0.75), 0 0 40px rgba(255, 176, 32, 0.35);
+  }
+}
+
+.animate-sign-flicker {
+  animation: sign-flicker 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sign-flicker {
+    animation: none;
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(255, 176, 32, 0.5);
+  }
+}
+
+/* Infinite Seamless Brand Marquee (Left-to-Right and Right-to-Left) */
+@keyframes marquee-scroll-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-scroll-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.marquee-track-left {
+  display: flex !important;
+  width: max-content !important;
+  will-change: transform;
+  animation: marquee-scroll-left 32s linear infinite !important;
+}
+
+.marquee-track-right {
+  display: flex !important;
+  width: max-content !important;
+  will-change: transform;
+  animation: marquee-scroll-right 32s linear infinite !important;
+}
+
+/* Freeze marquee immediately on hover of row or any child card */
+.marquee-row-wrap:hover .marquee-track-left,
+.marquee-track-left:hover {
+  animation-play-state: paused !important;
+}
+
+.marquee-row-wrap:hover .marquee-track-right,
+.marquee-track-right:hover {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track-left,
+  .marquee-track-right {
+    animation: none !important;
+  }
+}
+
+/* Diagnostic Laser Scan Line */
+@keyframes diagnostic-scan {
+  0% {
+    top: 0%;
+    opacity: 0.7;
+  }
+  50% {
+    top: 96%;
+    opacity: 1;
+  }
+  100% {
+    top: 0%;
+    opacity: 0.7;
+  }
+}
+
+.animate-diagnostic-scan {
+  animation: diagnostic-scan 3.5s ease-in-out infinite;
+}
+
