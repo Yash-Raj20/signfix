@@ -3,7 +3,7 @@ import { Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import { Cursor } from '@/components/layout/Cursor';
-import { Intro } from '@/components/layout/Intro';
+import { Preloader } from '@/components/common/Preloader';
 import { FloatingActions } from '@/components/layout/FloatingActions';
 import { siteContent } from '@/lib/content';
 
@@ -127,7 +127,7 @@ export default function RootLayout({
         </a>
 
         <SmoothScroll>
-          <Intro />
+          {/* <Preloader /> */}
           <Cursor />
           {children}
           <FloatingActions />
